@@ -7,7 +7,7 @@ from user.models import User
 
 class UserRegisterView(generics.CreateAPIView):
     serializer_class = UserRegisterSerializer
-    permission_classes = [IsDirector]
+    permission_classes = [IsDirector|AllowAny]
 
 
 class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
