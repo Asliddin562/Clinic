@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-26 11:18+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+
+msgid "Director"
+msgstr "Директор"
+
+msgid "Administrator"
+msgstr "Администратор"
+
+msgid "Accountant"
+msgstr "Бухгалтер"
+
+msgid "Doctor"
+msgstr "Врач"
+
+msgid "Man"
+msgstr "Man"
+
+msgid "Woman"
+msgstr "Woman"
+
+msgid "Director"
+msgstr "Руководитель"
+
+msgid "Administrator"
+msgstr "Администратор"
+
+msgid "Manager"
+msgstr "Менеджер"
+
+msgid "Accountant"
+msgstr "Бухгалтер"
+
+msgid "Receptionist"
+msgstr "Ресепшионист"
+
+msgid "Doctor"
+msgstr "Врач"
+
+msgid "Dentist"
+msgstr "Стоматолог"
+
+msgid "Pediatrician"
+msgstr "Педиатр"
+
+msgid "Cardiologist"
+msgstr "Кардиолог"
+
+msgid "Neurologist"
+msgstr "Невролог"
+
+msgid "Surgeon"
+msgstr "Хирург"
+
+msgid "Gynecologist"
+msgstr "Гинеколог"
+
+msgid "Dermatologist"
+msgstr "Дерматолог"
+
+msgid "Psychiatrist"
+msgstr "Психиатр"
+
+msgid "Therapist"
+msgstr "Терапевт"
+
+msgid "Nurse"
+msgstr "Медсестра"
+
+msgid "Pharmacist"
+msgstr "Фармацевт"
+
+msgid "Assistant"
+msgstr "Ассистент"
+
+msgid "Guard"
+msgstr "Охранник"
+
+msgid "Accepting Appointments"
+msgstr "Принимает записи"
+
+msgid "Not Accepting Appointments"
+msgstr "Не принимает записи"
+

@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-26 11:18+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Director"
+msgstr "Director"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Accountant"
+msgstr "Accountant"
+
+msgid "Doctor"
+msgstr "Doctor"
+
+msgid "Man"
+msgstr "Man"
+
+msgid "Woman"
+msgstr "Woman"
+
+msgid "Director"
+msgstr "Director"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Manager"
+msgstr "Manager"
+
+msgid "Accountant"
+msgstr "Accountant"
+
+msgid "Receptionist"
+msgstr "Receptionist"
+
+msgid "Doctor"
+msgstr "Doctor"
+
+msgid "Dentist"
+msgstr "Dentist"
+
+msgid "Pediatrician"
+msgstr "Pediatrician"
+
+msgid "Cardiologist"
+msgstr "Cardiologist"
+
+msgid "Neurologist"
+msgstr "Neurologist"
+
+msgid "Surgeon"
+msgstr "Surgeon"
+
+msgid "Gynecologist"
+msgstr "Gynecologist"
+
+msgid "Dermatologist"
+msgstr "Dermatologist"
+
+msgid "Psychiatrist"
+msgstr "Psychiatrist"
+
+msgid "Therapist"
+msgstr "Therapist"
+
+msgid "Nurse"
+msgstr "Nurse"
+
+msgid "Pharmacist"
+msgstr "Pharmacist"
+
+msgid "Assistant"
+msgstr "Assistant"
+
+msgid "Guard"
+msgstr "Guard"
+
+msgid "Accepting Appointments"
+msgstr "Accepting Appointments"
+
+msgid "Not Accepting Appointments"
+msgstr "Not Accepting Appointments"

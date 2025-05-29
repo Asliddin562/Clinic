@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-26 11:17+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+msgid "Director"
+msgstr "Direktor"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Accountant"
+msgstr "Buxgalter"
+
+msgid "Doctor"
+msgstr "Shifokor"
+
+msgid "Man"
+msgstr "Erkak"
+
+msgid "Woman"
+msgstr "Ayol"
+
+msgid "Director"
+msgstr "Rahbariyat"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Manager"
+msgstr "Menejer"
+
+msgid "Accountant"
+msgstr "Buxgalter"
+
+msgid "Receptionist"
+msgstr "Qabulxonachi"
+
+msgid "Doctor"
+msgstr "Shifokor"
+
+msgid "Dentist"
+msgstr "Stomatolog"
+
+msgid "Pediatrician"
+msgstr "Pediatr"
+
+msgid "Cardiologist"
+msgstr "Kardiolog"
+
+msgid "Neurologist"
+msgstr "Neyrolog"
+
+msgid "Surgeon"
+msgstr "Jarroh"
+
+msgid "Gynecologist"
+msgstr "Ginekolog"
+
+msgid "Dermatologist"
+msgstr "Dermatolog"
+
+msgid "Psychiatrist"
+msgstr "Psixiatr"
+
+msgid "Therapist"
+msgstr "Terapevt"
+
+msgid "Nurse"
+msgstr "Hamshira"
+
+msgid "Pharmacist"
+msgstr "Farmatsevt"
+
+msgid "Assistant"
+msgstr "Assistent"
+
+msgid "Guard"
+msgstr "Qorovul"
+
+msgid "Accepting Appointments"
+msgstr "Qabul qilmoqda"
+
+msgid "Not Accepting Appointments"
+msgstr "Qabul qilmayapti"
