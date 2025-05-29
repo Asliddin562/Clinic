@@ -99,3 +99,18 @@ msgstr "Qabul qilmoqda"
 
 msgid "Not Accepting Appointments"
 msgstr "Qabul qilmayapti"
+
+msgid "scheduled"
+msgstr "Rejalashtirilgan"
+
+msgid "completed"
+msgstr "Tugallangan"
+
+msgid "canceled"
+msgstr "Bekor qilingan"
+
+msgid "upcoming_task"
+msgstr "Yaqinlashayotgan vazifa"
+
+msgid "upcoming_visit"
+msgstr "Yaqinlashayotgan tashrif"
