@@ -1,23 +1,31 @@
-from rest_framework import generics
+from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
+from django.contrib.auth import get_user_model
 from user.permissions import IsDirector
-from .serializers import UserRegisterSerializer, UserDetailSerializer
-from rest_framework.views import APIView
-from user.models import User
+from .serializers import CreateUserRegisterSerializer, UserRegisterSerializer, UserRoleUpdateSerializer
 
-class UserRegisterView(generics.CreateAPIView):
-    serializer_class = UserRegisterSerializer
-    permission_classes = [IsDirector|AllowAny]
+User = get_user_model()
 
-
-class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
+class UserRegisterViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet
+):
     queryset = User.objects.all()
-    serializer_class = UserDetailSerializer
-    permission_classes = [IsDirector|AllowAny]
+    permission_classes = [AllowAny | IsDirector]
+
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return UserRegisterSerializer
+        return CreateUserRegisterSerializer
 
 
-class UserListAPIView(generics.ListAPIView):
+class UserRoleUpdateViewSet(
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet
+):
     queryset = User.objects.all()
-    serializer_class = UserDetailSerializer
-    permission_classes = [IsDirector|AllowAny]
-
+    serializer_class = UserRoleUpdateSerializer
+    permission_classes = [AllowAny]

@@ -99,3 +99,18 @@ msgstr "Accepting Appointments"
 
 msgid "Not Accepting Appointments"
 msgstr "Not Accepting Appointments"
+
+msgid "scheduled"
+msgstr "Scheduled"
+
+msgid "completed"
+msgstr "Completed"
+
+msgid "canceled"
+msgstr "Canceled"
+
+msgid "upcoming_task"
+msgstr "Upcoming Task"
+
+msgid "upcoming_visit"
+msgstr "Upcoming Visit"

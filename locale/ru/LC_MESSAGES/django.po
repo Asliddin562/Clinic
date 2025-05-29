@@ -102,3 +102,17 @@ msgstr "Принимает записи"
 msgid "Not Accepting Appointments"
 msgstr "Не принимает записи"
 
+msgid "scheduled"
+msgstr "Запланировано"
+
+msgid "completed"
+msgstr "Завершено"
+
+msgid "canceled"
+msgstr "Отменено"
+
+msgid "upcoming_task"
+msgstr "Предстоящая задача"
+
+msgid "upcoming_visit"
+msgstr "Предстоящий визит"
