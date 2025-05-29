@@ -3,17 +3,6 @@ from user.models import User
 from django.utils.translation import gettext_lazy as _
 
 
-# Create your models here.
-class EmployeeAddress(models.Model):
-    region = models.CharField(max_length=20)
-    district = models.CharField(max_length=20)
-    street = models.CharField(max_length=30)
-    home = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.district}, {self.street}, {self.home}"
-
-
 class Employee(models.Model):
     GENDER_CHOICES = [
         ('male', 'Man'),
@@ -50,7 +39,6 @@ class Employee(models.Model):
     home_phone = models.CharField(max_length=20, null=True, blank=True)
     birth_date = models.DateField()
     email = models.EmailField(null=True, blank=True)
-    address = models.OneToOneField(EmployeeAddress, on_delete=models.CASCADE, related_name="employee")
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     profession = models.CharField(max_length=50, choices=PROFESSION_CHOICES, blank=True, null=True)
     is_accepting_appointments = models.BooleanField(default=False)
@@ -62,10 +50,21 @@ class Employee(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+class EmployeeAddress(models.Model):
+    employee = models.OneToOneField(Employee, on_delete=models.SET_NULL, null=True, blank=True,
+                                 related_name="address")
+    region = models.CharField(max_length=20)
+    district = models.CharField(max_length=20)
+    street = models.CharField(max_length=30)
+    home = models.CharField(max_length=255)
+
+
+    def __str__(self):
+        return f"{self.employee} {self.district}, {self.home}"
+
 
 class WorkSchedule(models.Model):
     employee = models.OneToOneField('Employee', on_delete=models.CASCADE, related_name='schedule')
-
     monday = models.BooleanField(default=False)
     tuesday = models.BooleanField(default=False)
     wednesday = models.BooleanField(default=False)
