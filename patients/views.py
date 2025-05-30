@@ -1,9 +1,9 @@
 from rest_framework import viewsets
-from .models import Patient, MedicalHistory
+from .models import Patient, MedicalHistory, PatientAddress
 from user.permissions import IsDirector, IsAdmin, IsDoctor
 from rest_framework.permissions import AllowAny
-from rest_framework import filters
 from .serializers import (
+    PatientAddressSerializer,
     GetPatientSerializer,
     CreatePatientSerializer,
     MedicalHistorySerializer
@@ -13,18 +13,22 @@ from .serializers import (
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     permission_classes = [IsDirector | IsAdmin | IsDoctor | AllowAny]
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['patient__first_name', 'patient__last_name']
-
     def get_serializer_class(self):
-        if self.action in ['list', 'retrieve']:
-            return GetPatientSerializer
-        return CreatePatientSerializer
+        if self.action in ['create', 'update', 'partial_update']:
+            return CreatePatientSerializer
+        return GetPatientSerializer
 
+
+class PatientAddressViewSet(viewsets.ModelViewSet):
+    queryset = PatientAddress.objects.all()
+    serializer_class = PatientAddressSerializer
+    permission_classes = [IsDirector|IsAdmin|AllowAny]
 
 
 class MedicalHistoryViewSet(viewsets.ModelViewSet):
     queryset = MedicalHistory.objects.all()
     serializer_class = MedicalHistorySerializer
     permission_classes = [IsDirector|IsAdmin|IsDoctor|AllowAny]
+
+
 

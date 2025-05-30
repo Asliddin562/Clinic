@@ -2,26 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class PatientAddress(models.Model):
-    region = models.CharField(max_length=20)
-    district = models.CharField(max_length=20)
-    street = models.CharField(max_length=30)
-    home = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.district}, {self.street}, {self.home}"
-
-
-class MedicalHistory(models.Model):
-    diagnosis = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    date = models.DateField()
-    image = models.ImageField(upload_to='medical_images/', null=True, blank=True)
-
-    def __str__(self):
-        return f"{self.patient.first_name} {self.patient.last_name} - {self.diagnosis}"
-
-
 class Patient(models.Model):
     GENDER_CHOICES = [
         ('male', _('Man')),
@@ -34,11 +14,33 @@ class Patient(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     phone = models.CharField(max_length=20, null=True, blank=True)
-    address = models.OneToOneField(PatientAddress, on_delete=models.SET_NULL, null=True, blank=True)
-    history = models.ForeignKey(MedicalHistory, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.gender})"
+
+
+class PatientAddress(models.Model):
+    patient = models.OneToOneField(
+        Patient, on_delete=models.SET_NULL, null=True, blank=True, related_name='address')
+    region = models.CharField(max_length=20)
+    district = models.CharField(max_length=20)
+    street = models.CharField(max_length=30)
+    home = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.district}, {self.street}, {self.home}"
+
+
+class MedicalHistory(models.Model):
+    patient = models.ForeignKey(
+        Patient, on_delete=models.SET_NULL, null=True, blank=True, related_name="history")
+    diagnosis = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    date = models.DateField()
+    image = models.ImageField(upload_to='medical_images/', null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.patient.first_name} {self.patient.last_name} - {self.diagnosis}"
 
 
 

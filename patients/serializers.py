@@ -5,7 +5,9 @@ from .models import Patient, MedicalHistory, PatientAddress
 class PatientAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientAddress
-        fields = ['region',
+        fields = ['id',
+                  'patient',
+                  'region',
                   'district',
                   'street',
                   'home']
@@ -16,6 +18,7 @@ class MedicalHistorySerializer(serializers.ModelSerializer):
         model = MedicalHistory
         fields = [
             'id',
+            'patient',
             'diagnosis',
             'description',
             'date',
@@ -25,12 +28,13 @@ class MedicalHistorySerializer(serializers.ModelSerializer):
 
 
 class GetPatientSerializer(serializers.ModelSerializer):
-    address = PatientAddressSerializer()
-    history = MedicalHistorySerializer()
+    address = PatientAddressSerializer(read_only=True)
+    history = MedicalHistorySerializer(many=True, read_only=True)
 
     class Meta:
         model = Patient
         fields = [
+            'id',
             'card_number',
             'first_name',
             'last_name',
@@ -55,33 +59,7 @@ class CreatePatientSerializer(serializers.ModelSerializer):
             'birth_date',
             'gender',
             'phone',
-            'address',
-            'history'
         ]
-
-    def create(self, validated_data):
-        address_data = validated_data.pop('address', None)
-        history_data = validated_data.pop('history', None)
-
-        # agar address_data bo‘sh dict bo‘lsa, None qilamiz
-        if not address_data or not any(address_data.values()):
-            address_data = None
-
-        if not history_data or not any(history_data.values()):
-            history_data = None
-
-        history = None
-        if history_data:
-            history = MedicalHistory.objects.create(**history_data)
-
-        patient = Patient.objects.create(history=history, **validated_data)
-
-        if address_data:
-            address = PatientAddress.objects.create(**address_data)
-            patient.address = address
-            patient.save()
-
-        return patient
 
 
 
