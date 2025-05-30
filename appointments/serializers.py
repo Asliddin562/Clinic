@@ -3,13 +3,13 @@ from patients.models import Patient, PatientAddress
 from .models import Appointment
 from patients.serializers import CreatePatientSerializer, PatientAddressSerializer
 from employees.models import Employee
+from datetime import datetime, timedelta, time
+
+
+
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    patient = CreatePatientSerializer(required=False)
-    patient_id = serializers.PrimaryKeyRelatedField(
-        queryset=Patient.objects.all(), write_only=True, required=False
-    )
-    doctor = serializers.PrimaryKeyRelatedField(
+    employee = serializers.PrimaryKeyRelatedField(
         queryset=Employee.objects.filter(is_accepting_appointments=True)
     )
 
@@ -17,9 +17,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
         model = Appointment
         fields = [
             'id',
-            'doctor',
+            'employee',
             'patient',
-            'patient_id',
             'date',
             'start_time',
             'end_time',
@@ -30,22 +29,80 @@ class AppointmentSerializer(serializers.ModelSerializer):
         read_only_fields = ['created_at', 'updated_at']
 
     def validate(self, attrs):
-        if not attrs.get('patient') and not attrs.get('patient_id'):
-            raise serializers.ValidationError("patient yoki patient_id kerak.")
+        employee = attrs['employee']
+        date = attrs['date']
+        start_time = attrs['start_time']
+        end_time = attrs['end_time']
+
+        now = datetime.now()  # hozirgi sana + vaqt
+        appointment_datetime = datetime.combine(date, start_time)
+
+        #  O‘tgan vaqtga zayavka bo‘lmasin (bugungi kun lekin vaqt o‘tgan bo‘lsa ham)
+        if appointment_datetime <= now:
+            raise serializers.ValidationError("O‘tgan vaqt bilan ro'yxatdan o'tish imkonsiz.")
+
+        # 1 oydan keyingi sana bo‘lmasin
+        if date > now.date() + timedelta(days=30):
+            raise serializers.ValidationError("Faqat 30 kun ichida ro'yxatdan o'tish mumkin.")
+
+        # Ish vaqti oraliqlari
+        morning_start = time(9, 0)
+        morning_end = time(13, 0)
+        afternoon_start = time(14, 0)
+        afternoon_end = time(23, 0)
+
+        valid_morning = morning_start <= start_time < morning_end and morning_start < end_time <= morning_end
+        valid_afternoon = afternoon_start <= start_time < afternoon_end and afternoon_start < end_time <= afternoon_end
+
+        if not (valid_morning or valid_afternoon):
+            raise serializers.ValidationError("Ro'yxatdan o'tish 09:00-13:00 yoki 14:00-23:00 orasida berilishi mumkin.")
+
+        # Shu vaqtda boshqa zayavka yo‘qligini tekshir
+        overlapping_appointments = Appointment.objects.filter(
+            employee=employee,
+            date=date,
+            start_time__lt=end_time,
+            end_time__gt=start_time
+        ).exclude(id=self.instance.id if self.instance else None)
+
+        if overlapping_appointments.exists():
+            raise serializers.ValidationError("Bu vaqt band qilingan.")
+
+        # Doktor bu kuni ishlaydimi?
+        weekday = date.weekday()  # 0 - Dushanba, ..., 6 - Yakshanba
+
+        day_map = {
+            0: 'monday',
+            1: 'tuesday',
+            2: 'wednesday',
+            3: 'thursday',
+            4: 'friday',
+            5: 'saturday',
+            6: 'sunday',
+        }
+
+        # Ish kunini tekshirish uchun:
+        work_schedule = employee.schedule  # bitta WorkSchedule obyekti
+        day_field = day_map[weekday]
+
+        if not getattr(work_schedule, day_field):
+            raise serializers.ValidationError("Doktor bu kuni ishlamaydi.")
+
         return attrs
 
-    def create(self, validated_data):
-        patient_data = validated_data.pop('patient', None)
-        patient_id = validated_data.pop('patient_id', None)
 
-        if patient_id:
-            patient = patient_id
-        elif patient_data:
-            address_data = patient_data.pop('address')
-            address = PatientAddress.objects.create(**address_data)
-            patient = Patient.objects.create(address=address, **patient_data)
-        else:
-            raise serializers.ValidationError("patient yoki patient_id kerak.")
 
-        appointment = Appointment.objects.create(patient=patient, **validated_data)
-        return appointment
+class AppointmentListSerializer(serializers.ModelSerializer):
+    employee = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Appointment
+        fields = [
+            'id',
+            'patient',
+            'employee',  # Bu yerda aslida employee_id chiqadi
+            'date',
+            'start_time',
+            'end_time',
+            'status',
+        ]

@@ -31,7 +31,7 @@ class Employee(models.Model):
         ('guard', _('Guard')),  # Qorovul
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="employee")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="employees")
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     father_name = models.CharField(max_length=30, null=True, blank=True)

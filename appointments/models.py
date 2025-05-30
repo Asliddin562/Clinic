@@ -12,7 +12,7 @@ class Appointment(models.Model):
         ('upcoming_visit', _('Upcoming Visit')),
     ]
 
-    doctor = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='appointments')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='appointments')
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='appointments', null=True)
     date = models.DateField()
     start_time = models.TimeField()

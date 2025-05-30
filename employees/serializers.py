@@ -49,8 +49,8 @@ class EmployeeGetSerializer(serializers.ModelSerializer):
             'gender',
             'profession',
             'is_accepting_appointments',
-            'schedule',
             'address',
+            'schedule',
             'created_at',
             'updated_at',
         ]
