@@ -1,13 +1,26 @@
-from rest_framework import viewsets
-from .models import Employee, WorkSchedule
-from .serializers import EmployeeSerializer
-from rest_framework.permissions import AllowAny
-from user.permissions import IsDirector, IsAdmin
+from rest_framework import viewsets, mixins
+from .models import Employee, EmployeeAddress, WorkSchedule
+from .serializers import (
+    EmployeeCreateSerializer,
+    EmployeeGetSerializer,
+    EmployeeAddressSerializer,
+    WorkScheduleSerializer
+)
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-    permission_classes = [IsAdmin|IsDirector|AllowAny]
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return EmployeeCreateSerializer
+        return EmployeeGetSerializer
 
 
+class EmployeeAddressViewSet(viewsets.ModelViewSet):
+    queryset = EmployeeAddress.objects.all()
+    serializer_class = EmployeeAddressSerializer
 
+
+class WorkScheduleViewSet(viewsets.ModelViewSet):
+    queryset = WorkSchedule.objects.all()
+    serializer_class = WorkScheduleSerializer

@@ -44,8 +44,6 @@ class GetPatientSerializer(serializers.ModelSerializer):
 
 
 class CreatePatientSerializer(serializers.ModelSerializer):
-    address = PatientAddressSerializer(required=False)
-    history = MedicalHistorySerializer(required=False)
 
     class Meta:
         model = Patient
