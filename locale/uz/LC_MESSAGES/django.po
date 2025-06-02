@@ -114,3 +114,18 @@ msgstr "Yaqinlashayotgan vazifa"
 
 msgid "upcoming_visit"
 msgstr "Yaqinlashayotgan tashrif"
+
+msgid "Primary mobile number must be in '+998901234567' or '998901234567' format."
+msgstr "Asosiy mobil raqam '+998901234567' yoki '998901234567' formatida bo‘lishi kerak."
+
+msgid "Secondary mobile number must be in '+998901234567' or '998901234567' format."
+msgstr "Ikkinchi mobil raqam '+998901234567' yoki '998901234567' formatida bo‘lishi kerak."
+
+msgid "Home phone number must be in '+998901234567' or '998901234567' format."
+msgstr "Uy telefoni '+998901234567' yoki '998901234567' formatida bo‘lishi kerak."
+
+msgid "Fixed"
+msgstr "Doimiy"
+
+msgid "Percentage"
+msgstr "Foizda"

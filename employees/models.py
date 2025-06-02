@@ -3,45 +3,48 @@ from user.models import User
 from django.utils.translation import gettext_lazy as _
 
 
+class Profession(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+
 class Employee(models.Model):
     GENDER_CHOICES = [
-        ('male', 'Man'),
-        ('female', 'Woman'),
+        ('male', _('Man')),
+        ('female', _('Woman')),
     ]
 
-    PROFESSION_CHOICES = [
-        ('director', _('Director')),  # Rahbariyat
-        ('admin', _('Administrator')),  # Administrator
-        ('manager', _('Manager')),  # Menejer
-        ('accountant', _('Accountant')),  # Buxgalter
-        ('receptionist', _('Receptionist')),  # Qabulxonachi
-        ('doctor', _('Doctor')),  # Umumiy shifokor
-        ('dentist', _('Dentist')),  # Stomatolog
-        ('pediatrician', _('Pediatrician')),  # Pediatr
-        ('cardiologist', _('Cardiologist')),  # Kardiolog
-        ('neurologist', _('Neurologist')),  # Neyrolog
-        ('surgeon', _('Surgeon')),  # Jarroh
-        ('gynecologist', _('Gynecologist')),  # Ginekolog
-        ('dermatologist', _('Dermatologist')),  # Dermatolog
-        ('psychiatrist', _('Psychiatrist')),  # Psixiatr
-        ('therapist', _('Therapist')),  # Terapevt
-        ('nurse', _('Nurse')),  # Hamshira
-        ('pharmacist', _('Pharmacist')),  # Farmatsevt
-        ('assistant', _('Assistant')),  # Assistent
-        ('guard', _('Guard')),  # Qorovul
+    EARNING_TYPE_CHOICES = [
+        ('fixed', _('Fixed')),
+        ('percentage', _('Percentage'))
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="employees")
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     father_name = models.CharField(max_length=30, null=True, blank=True)
-    mobile_phone = models.CharField(max_length=20)
+    mobile_phone1 = models.CharField(max_length=20)
+    mobile_phone2 = models.CharField(max_length=20, null=True, blank=True)
     home_phone = models.CharField(max_length=20, null=True, blank=True)
     birth_date = models.DateField()
     email = models.EmailField(null=True, blank=True)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    profession = models.CharField(max_length=50, choices=PROFESSION_CHOICES, blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='Man')
+    profession = models.ManyToManyField(Profession, blank=True, related_name='employee')
     is_accepting_appointments = models.BooleanField(default=False)
+    earning_type = models.CharField(max_length=10, choices=EARNING_TYPE_CHOICES, default='Fixed')
+    commission_percentage = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    fixed_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    is_working = models.BooleanField(default=False)
+    is_using_program = models.BooleanField(default=False)
+    passport_id = models.CharField(max_length=20, null=True, blank=True)
+    chair = models.CharField(max_length=20, null=True, blank=True)
+    color_hex = models.CharField(max_length=20, null=True, blank=True)
+    comment = models.TextField(null=True, blank=True)
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -54,13 +57,14 @@ class EmployeeAddress(models.Model):
     employee = models.OneToOneField(Employee, on_delete=models.SET_NULL, null=True, blank=True,
                                  related_name="address")
     region = models.CharField(max_length=20)
-    district = models.CharField(max_length=20)
-    street = models.CharField(max_length=30)
-    home = models.CharField(max_length=255)
+    district = models.CharField(max_length=20, null=True, blank=True)
+    street = models.CharField(max_length=100)
+    building = models.CharField(max_length=100, null=True, blank=True)
+    apartment = models.CharField(max_length=255)
 
 
     def __str__(self):
-        return f"{self.employee} {self.district}, {self.home}"
+        return f"{self.employee} {self.district}, {self.apartment}"
 
 
 class WorkSchedule(models.Model):

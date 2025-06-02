@@ -114,3 +114,18 @@ msgstr "Upcoming Task"
 
 msgid "upcoming_visit"
 msgstr "Upcoming Visit"
+
+msgid "Primary mobile number must be in '+998901234567' or '998901234567' format."
+msgstr "Primary mobile number must be in '+998901234567' or '998901234567' format."
+
+msgid "Secondary mobile number must be in '+998901234567' or '998901234567' format."
+msgstr "Secondary mobile number must be in '+998901234567' or '998901234567' format."
+
+msgid "Home phone number must be in '+998901234567' or '998901234567' format."
+msgstr "Home phone number must be in '+998901234567' or '998901234567' format."
+
+msgid "Fixed"
+msgstr "Fixed"
+
+msgid "Percentage"
+msgstr "Percentage"

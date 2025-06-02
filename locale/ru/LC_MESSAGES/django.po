@@ -116,3 +116,19 @@ msgstr "Предстоящая задача"
 
 msgid "upcoming_visit"
 msgstr "Предстоящий визит"
+
+msgid "Primary mobile number must be in '+998901234567' or '998901234567' format."
+msgstr "Основной мобильный номер должен быть в формате '+998901234567' или '998901234567'."
+
+msgid "Secondary mobile number must be in '+998901234567' or '998901234567' format."
+msgstr "Второй мобильный номер должен быть в формате '+998901234567' или '998901234567'."
+
+msgid "Home phone number must be in '+998901234567' or '998901234567' format."
+msgstr "Домашний номер телефона должен быть в формате '+998901234567' или '998901234567'."
+
+msgid "Fixed"
+msgstr "Фиксированная сумма"
+
+msgid "Percentage"
+msgstr "Процент"
+

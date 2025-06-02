@@ -1,5 +1,5 @@
 from django.contrib import admin
-from employees.models import Employee, EmployeeAddress, WorkSchedule
+from employees.models import Employee, EmployeeAddress, WorkSchedule, Profession
 
 class WorkScheduleInline(admin.StackedInline):
     model = WorkSchedule
@@ -11,21 +11,25 @@ class EmployeeAddressInline(admin.StackedInline):
     can_delete = False
 
 
+@admin.register(Profession)
+class ProfessionAdmin(admin.ModelAdmin):
+    list_display = ['code', 'name']
+
+
 # Employee uchun admin
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'mobile_phone', 'email', 'profession', 'gender', 'created_at')
-    list_filter = ('gender', 'profession', 'created_at', 'is_accepting_appointments')
-    search_fields = ('first_name', 'last_name', 'mobile_phone', 'email', 'is_accepting_appointments')
+    list_display = ('first_name', 'last_name', 'mobile_phone1', 'gender', 'created_at')
+    list_filter = ('gender', 'profession', 'created_at', 'is_accepting_appointments', 'is_using_program', 'is_working')
+    search_fields = ('first_name', 'last_name', 'mobile_phone', 'is_accepting_appointments')
     inlines = [WorkScheduleInline, EmployeeAddressInline]  # Jadvalni birga ko‘rsatish
     readonly_fields = ('created_at', 'updated_at')
 
 
 @admin.register(EmployeeAddress)
 class EmployeeAddressAdmin(admin.ModelAdmin):
-    list_display = ('employee', 'region', 'district', 'street', 'home')
-    search_fields = ('region', 'district', 'street')
-
+    list_display = ('employee', 'region', 'district', 'street', 'building', 'apartment')
+    search_fields = ('region', 'district', 'street', 'building')
 
 
 @admin.register(WorkSchedule)
