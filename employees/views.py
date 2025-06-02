@@ -12,6 +12,7 @@ from .serializers import (
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
+    permission_classes = [IsDirector|AllowAny]
 
     def get_serializer_class(self):
         if self.action in ['create', 'update', 'partial_update']:

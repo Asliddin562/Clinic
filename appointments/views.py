@@ -16,7 +16,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
 
 class DoctorAppointmentsViewSet(viewsets.ViewSet):
-    permission_classes = [AllowAny]
+    permission_classes = [IsDirector|AllowAny]
 
     def list(self, request):
         # So‘rovdan date va employee_id ni olish

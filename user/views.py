@@ -28,4 +28,4 @@ class UserRoleUpdateViewSet(
 ):
     queryset = User.objects.all()
     serializer_class = UserRoleUpdateSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsDirector|AllowAny]
