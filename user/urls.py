@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register('user-register', UserRegisterViewSet, basename='user-register')
-router.register(r'user-change-role', UserRoleUpdateViewSet, basename='user-change-role')
+router.register('user-change-role', UserRoleUpdateViewSet, basename='user-change-role')
 
 urlpatterns = [
     path('', include(router.urls)),
