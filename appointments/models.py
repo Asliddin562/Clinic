@@ -18,7 +18,7 @@ class Appointment(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     status = models.CharField(
-        max_length=20,
+        max_length=30,
         choices=APPOINTMENT_STATUS_CHOICES,
         default='pending'
     )
