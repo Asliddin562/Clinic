@@ -23,10 +23,20 @@ class AppointmentSerializer(serializers.ModelSerializer):
             'start_time',
             'end_time',
             'status',
+            'reason',
+            'comment',
+            'sms_notification',
+            'sms_text',
+            'add_to_waiting_list',
+            'created_by',
             'created_at',
             'updated_at',
         ]
-        read_only_fields = ['created_at', 'updated_at']
+        read_only_fields = ['created_by', 'created_at', 'updated_at']
+
+    def create(self, validated_data):
+        validated_data['created_by'] = self.context['request'].user.employees
+        return super().create(validated_data)
 
     def validate(self, attrs):
         employee = attrs['employee']
@@ -105,4 +115,10 @@ class AppointmentListSerializer(serializers.ModelSerializer):
             'start_time',
             'end_time',
             'status',
+            'reason',
+            'comment',
+            'sms_notification',
+            'sms_text',
+            'add_to_waiting_list',
+            'created_by',
         ]

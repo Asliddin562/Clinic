@@ -22,6 +22,12 @@ class Appointment(models.Model):
         choices=APPOINTMENT_STATUS_CHOICES,
         default='pending'
     )
+    reason = models.TextField(null=True, blank=True)
+    comment = models.TextField(null=True, blank=True)
+    sms_notification = models.BooleanField(default=False)
+    sms_text = models.TextField(null=True, blank=True)
+    add_to_waiting_list = models.BooleanField(default=False)
+    created_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='appointment')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

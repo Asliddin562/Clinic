@@ -9,6 +9,6 @@ class AppointmentAdmin(admin.ModelAdmin):
     search_fields = ('employee__username', 'patient__first_name', 'patient__last_name')
     ordering = ('-date', 'start_time')
     readonly_fields = ('created_at', 'updated_at')
-
     autocomplete_fields = ['employee', 'patient']
+
 
