@@ -101,24 +101,62 @@ class AppointmentSerializer(serializers.ModelSerializer):
         return attrs
 
 
+class PatientShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = [
+            'id',
+            'first_name',
+            'last_name',
+            'father_name',
+            'birth_date',
+            'mobile_phone1',
+            'comment'
+        ]
+
+class EmployeeShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = [
+            'id',
+            'first_name',
+            'last_name',
+            'father_name'
+        ]
 
 class AppointmentListSerializer(serializers.ModelSerializer):
-    employee = serializers.PrimaryKeyRelatedField(read_only=True)
-
+    employee = EmployeeShortSerializer(read_only=True)
+    patient = PatientShortSerializer(read_only=True)
     class Meta:
         model = Appointment
         fields = [
             'id',
             'patient',
-            'employee',  # Bu yerda aslida employee_id chiqadi
-            'date',
+            'employee',
             'start_time',
             'end_time',
             'status',
-            'reason',
-            'comment',
-            'sms_notification',
-            'sms_text',
-            'add_to_waiting_list',
-            'created_by',
+            'comment'
         ]
+
+
+# class AppointmentListSerializer(serializers.ModelSerializer):
+#     employee = serializers.PrimaryKeyRelatedField(read_only=True)
+#
+#     class Meta:
+#         model = Appointment
+#         fields = [
+#             'id',
+#             'patient',
+#             'employee',  # Bu yerda aslida employee_id chiqadi
+#             'date',
+#             'start_time',
+#             'end_time',
+#             'status',
+#             'reason',
+#             'comment',
+#             'sms_notification',
+#             'sms_text',
+#             'add_to_waiting_list',
+#             'created_by',
+#         ]

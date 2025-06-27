@@ -7,7 +7,7 @@ from django.utils.timezone import now
 from collections import defaultdict
 from datetime import datetime, timedelta, date as date_cls, time as time_cls
 from .models import Appointment, Employee
-from .serializers import AppointmentSerializer
+from .serializers import AppointmentSerializer, AppointmentListSerializer
 from .filters import AppointmentFilter
 from .utils import get_duration_hours, get_color_by_percent, is_working_on_date
 
@@ -17,6 +17,11 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = AppointmentFilter
     permission_classes = [IsAdmin | IsDirector | IsDoctor | AllowAny]
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return AppointmentListSerializer
+        return AppointmentSerializer
 
     def list(self, request, *args, **kwargs):
         today = now().date()
