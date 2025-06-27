@@ -52,7 +52,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("O‘tgan vaqt bilan ro'yxatdan o'tish imkonsiz.")
 
         # 1 oydan keyingi sana bo‘lmasin
-        if date > now.date() + timedelta(days=30):
+        if date > now.date() + timedelta(days=60):
             raise serializers.ValidationError("Faqat 30 kun ichida ro'yxatdan o'tish mumkin.")
 
         # Ish vaqti oraliqlari
