@@ -140,24 +140,3 @@ class AppointmentListSerializer(serializers.ModelSerializer):
             'comment'
         ]
 
-
-# class AppointmentListSerializer(serializers.ModelSerializer):
-#     employee = serializers.PrimaryKeyRelatedField(read_only=True)
-#
-#     class Meta:
-#         model = Appointment
-#         fields = [
-#             'id',
-#             'patient',
-#             'employee',  # Bu yerda aslida employee_id chiqadi
-#             'date',
-#             'start_time',
-#             'end_time',
-#             'status',
-#             'reason',
-#             'comment',
-#             'sms_notification',
-#             'sms_text',
-#             'add_to_waiting_list',
-#             'created_by',
-#         ]

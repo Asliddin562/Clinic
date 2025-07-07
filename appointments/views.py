@@ -10,6 +10,7 @@ from .models import Appointment, Employee
 from .serializers import AppointmentSerializer, AppointmentListSerializer
 from .filters import AppointmentFilter
 from .utils import get_duration_hours, get_color_by_percent, is_working_on_date
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
@@ -23,14 +24,33 @@ class AppointmentViewSet(viewsets.ModelViewSet):
             return AppointmentListSerializer
         return AppointmentSerializer
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(name='range', type=OpenApiTypes.STR, location=OpenApiParameter.QUERY,
+                             description='Range of months (e.g. month1, month2)'),
+            OpenApiParameter(name='profession_id', type=OpenApiTypes.INT, location=OpenApiParameter.QUERY,
+                             description='Filter by profession ID'),
+            OpenApiParameter(name='employee_id', type=OpenApiTypes.INT, location=OpenApiParameter.QUERY,
+                             description='Filter by employee ID'),
+            OpenApiParameter(name='date', type=OpenApiTypes.DATE, location=OpenApiParameter.QUERY,
+                             description='Filtering by date (YYYY-MM-DD)'),
+            OpenApiParameter(name='start_time', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY,
+                             description='Start time (HH:MM)'),
+            OpenApiParameter(name='end_time', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY,
+                             description='End time (HH:MM)'),
+            OpenApiParameter(name='min', type=OpenApiTypes.INT, location=OpenApiParameter.QUERY,
+                             description='Slot duration in minutes'),
+        ]
+    )
+
     def list(self, request, *args, **kwargs):
         today = now().date()
+        range_param = request.query_params.get('range')
+        profession_id_param = request.query_params.get('profession_id')
         date_str = request.query_params.get('date')
+        employee_id_param = request.query_params.get('employee_id')
         start_time_str = request.query_params.get('start_time')
         end_time_str = request.query_params.get('end_time')
-        employee_id_param = request.query_params.get('employee_id')
-        profession_id_param = request.query_params.get('profession_id')
-        range_param = request.query_params.get('range')
         minute_param = request.query_params.get('min')
 
         if date_str:
@@ -168,83 +188,3 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         })
 
 
-
-# from rest_framework import viewsets
-# from user.permissions import IsAdmin, IsDirector, IsDoctor
-# from rest_framework.permissions import AllowAny
-# from rest_framework.response import Response
-# from django_filters.rest_framework import DjangoFilterBackend
-# from django.utils.timezone import now
-# from collections import defaultdict
-# from datetime import datetime
-# from .models import Appointment, Employee
-# from .serializers import AppointmentSerializer
-# from .filters import AppointmentFilter
-# from .utils import get_duration_hours, get_color_by_percent, is_working_on_date
-#
-#
-# class AppointmentViewSet(viewsets.ModelViewSet):
-#     serializer_class = AppointmentSerializer
-#     queryset = Appointment.objects.all()
-#     filter_backends = [DjangoFilterBackend]
-#     filterset_class = AppointmentFilter
-#     permission_classes = [IsAdmin | IsDirector | IsDoctor | AllowAny]
-#
-#     def list(self, request, *args, **kwargs):
-#         queryset = self.filter_queryset(self.get_queryset())
-#         serializer = self.get_serializer(queryset, many=True)
-#
-#         # Parametrlarni olish
-#         today = now().date()
-#         date_str = request.query_params.get('date')
-#
-#         if date_str:
-#             try:
-#                 date_to_filter = datetime.strptime(date_str, '%Y-%m-%d').date()
-#             except ValueError:
-#                 date_to_filter = today
-#         else:
-#             date_to_filter = today
-#
-#         doctor_hours = defaultdict(float)
-#         employee_ids_in_queryset = set()
-#
-#         for app in queryset:
-#             duration = get_duration_hours(app.start_time, app.end_time)
-#             doctor_hours[app.employee_id] += duration
-#             employee_ids_in_queryset.add(app.employee_id)
-#
-#         # Agar aniq employee_id so‘rovda bo‘lsa, faqat o‘sha xodimni olaylik
-#         employee_id_param = request.query_params.get('employee_id')
-#         if employee_id_param:
-#             employees = Employee.objects.filter(id=employee_id_param).prefetch_related('schedule')
-#         else:
-#             employees = Employee.objects.filter(id__in=employee_ids_in_queryset).prefetch_related('schedule')
-#
-#         percent_list = []
-#
-#         for emp in employees:
-#             schedule = getattr(emp, 'schedule', None)
-#             if not schedule or not is_working_on_date(schedule, date_to_filter):
-#                 percent = 100
-#             else:
-#                 total_hours = 13
-#                 booked = doctor_hours.get(emp.id, 0)
-#                 percent = int((booked / total_hours) * 100)
-#             percent_list.append(percent)
-#
-#         # Umumiy o‘rtacha foiz va rang
-#         if percent_list:
-#             avg_percent = int(sum(percent_list) / len(percent_list))
-#             summary_color = get_color_by_percent(avg_percent)
-#             calendar_stats_summary = {
-#                 "average_percent": avg_percent,
-#                 "color": summary_color
-#             }
-#         else:
-#             calendar_stats_summary = None
-#
-#         return Response({
-#             "appointments": serializer.data,
-#             "calendar_stats_summary": calendar_stats_summary
-#         })
