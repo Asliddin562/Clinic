@@ -61,7 +61,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
             except ValueError:
                 month_count = 1
 
-            start_month = today.replace(day=1)
+            start_month = date_to_filter.replace(day=1)
             end_month = (start_month.month + month_count - 1) % 12 or 12
             end_year = start_month.year + ((start_month.month + month_count - 1) // 12)
             end_day = 28
