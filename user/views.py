@@ -2,7 +2,11 @@ from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 from user.permissions import IsDirector
-from .serializers import CreateUserRegisterSerializer, UserRegisterSerializer, UserRoleUpdateSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import (CreateUserRegisterSerializer,
+                          UserRegisterSerializer,
+                          UserRoleUpdateSerializer,
+                          CustomTokenObtainPairSerializer)
 
 User = get_user_model()
 
@@ -29,3 +33,10 @@ class UserRoleUpdateViewSet(
     queryset = User.objects.all()
     serializer_class = UserRoleUpdateSerializer
     permission_classes = [IsDirector|AllowAny]
+
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+    permission_classes = [IsDirector | AllowAny]
+
