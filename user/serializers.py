@@ -49,6 +49,5 @@ class UserRoleUpdateSerializer(serializers.ModelSerializer):
         fields = ['username', 'role']
 
 
-class LoginOnlySerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField()
+class AccessTokenSerializer(serializers.Serializer):
+    access = serializers.CharField()
