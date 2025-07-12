@@ -129,3 +129,22 @@ msgstr "Fixed"
 
 msgid "Percentage"
 msgstr "Percentage"
+
+msgid "This user is not registered yet!"
+msgstr "This user is not registered yet!"
+
+msgid "Cannot register for a past date and time."
+msgstr "Cannot register for a past date and time."
+
+msgid "You can only book within the next 30 days."
+msgstr "You can only book within the next 30 days."
+
+msgid "Appointments can only be booked between 09:00–13:00 or 14:00–23:00."
+msgstr "Appointments can only be booked between 09:00–13:00 or 14:00–23:00."
+
+msgid "This time slot is already booked."
+msgstr "This time slot is already booked."
+
+msgid "The doctor does not work on this day."
+msgstr "The doctor does not work on this day."
+

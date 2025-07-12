@@ -4,6 +4,7 @@ from .models import Appointment
 from patients.serializers import CreatePatientSerializer, PatientAddressSerializer
 from employees.models import Employee
 from datetime import datetime, timedelta, time
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -49,11 +50,11 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
         #  O‘tgan vaqtga zayavka bo‘lmasin (bugungi kun lekin vaqt o‘tgan bo‘lsa ham)
         if appointment_datetime <= now:
-            raise serializers.ValidationError("O‘tgan vaqt bilan ro'yxatdan o'tish imkonsiz.")
+            raise serializers.ValidationError(_("Cannot register for a past date and time."))
 
         # 1 oydan keyingi sana bo‘lmasin
         if date > now.date() + timedelta(days=60):
-            raise serializers.ValidationError("Faqat 30 kun ichida ro'yxatdan o'tish mumkin.")
+            raise serializers.ValidationError(_("You can only book within the next 30 days."))
 
         # Ish vaqti oraliqlari
         morning_start = time(9, 0)
@@ -65,7 +66,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
         valid_afternoon = afternoon_start <= start_time < afternoon_end and afternoon_start < end_time <= afternoon_end
 
         if not (valid_morning or valid_afternoon):
-            raise serializers.ValidationError("Ro'yxatdan o'tish 09:00-13:00 yoki 14:00-23:00 orasida berilishi mumkin.")
+            raise serializers.ValidationError(_("Appointments can only be booked between 09:00–13:00 or 14:00–23:00."))
 
         # Shu vaqtda boshqa zayavka yo‘qligini tekshir
         overlapping_appointments = Appointment.objects.filter(
@@ -76,7 +77,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
         ).exclude(id=self.instance.id if self.instance else None)
 
         if overlapping_appointments.exists():
-            raise serializers.ValidationError("Bu vaqt band qilingan.")
+            raise serializers.ValidationError(_("This time slot is already booked."))
 
         # Doktor bu kuni ishlaydimi?
         weekday = date.weekday()  # 0 - Dushanba, ..., 6 - Yakshanba
@@ -96,7 +97,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
         day_field = day_map[weekday]
 
         if not getattr(work_schedule, day_field):
-            raise serializers.ValidationError("Doktor bu kuni ishlamaydi.")
+            raise serializers.ValidationError(_("The doctor does not work on this day."))
 
         return attrs
 

@@ -123,6 +123,25 @@ msgstr "Основной мобильный номер должен быть в 
 msgid "Secondary mobile number must be in '+998901234567' or '998901234567' format."
 msgstr "Второй мобильный номер должен быть в формате '+998901234567' или '998901234567'."
 
+msgid "This user is not registered yet!"
+msgstr "Этот пользователь еще не зарегистрирован!"
+
+msgid "Cannot register for a past date and time."
+msgstr "Невозможно записаться на прошедшее время."
+
+msgid "You can only book within the next 30 days."
+msgstr "Запись возможна только в течение следующих 30 дней."
+
+msgid "Appointments can only be booked between 09:00–13:00 or 14:00–23:00."
+msgstr "Запись возможна только с 09:00 до 13:00 или с 14:00 до 23:00."
+
+msgid "This time slot is already booked."
+msgstr "Это время уже занято."
+
+msgid "The doctor does not work on this day."
+msgstr "Доктор не работает в этот день."
+
+
 msgid "Home phone number must be in '+998901234567' or '998901234567' format."
 msgstr "Домашний номер телефона должен быть в формате '+998901234567' или '998901234567'."
 
@@ -132,3 +151,5 @@ msgstr "Фиксированная сумма"
 msgid "Percentage"
 msgstr "Процент"
 
+msgid "Bunday foydalanuvchi ro'yxatdan o'tmagan!"
+msgstr "Этот пользователь еще не зарегистрирован!"
