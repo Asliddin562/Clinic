@@ -200,3 +200,5 @@ SPECTACULAR_SETTINGS = {
         }
     },
 }
+
+#asliddin
