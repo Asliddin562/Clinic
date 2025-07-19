@@ -38,7 +38,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 #use this is demo server
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(',')
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
 
