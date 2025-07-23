@@ -36,8 +36,11 @@ class AppointmentSerializer(serializers.ModelSerializer):
         read_only_fields = ['created_by', 'created_at', 'updated_at']
 
     def create(self, validated_data):
-        validated_data['created_by'] = self.context['request'].user.employees
-        return super().create(validated_data)
+        try:
+            validated_data['created_by'] = self.context['request'].user.employees
+            return super().create(validated_data)
+        except AttributeError:
+            raise serializers.ValidationError("This employee is not authorized")
 
     def validate(self, attrs):
         employee = attrs['employee']
