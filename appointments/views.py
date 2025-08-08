@@ -20,7 +20,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdmin | IsDirector | IsDoctor | AllowAny]
 
     def get_serializer_class(self):
-        if self.action == 'list':
+        if self.action in ['list', 'retrieve']:
             return AppointmentListSerializer
         return AppointmentSerializer
 
