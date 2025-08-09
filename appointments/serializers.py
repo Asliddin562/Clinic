@@ -141,6 +141,13 @@ class AppointmentListSerializer(serializers.ModelSerializer):
             'start_time',
             'end_time',
             'status',
-            'comment'
-        ]
+            'comment',
+            'sms_notification',
+            'sms_text',
+            'add_to_waiting_list',
+            'created_by',
+            'created_at',
+            'updated_at',
+            ]
+        read_only_fields = ['created_by', 'created_at', 'updated_at']
 
